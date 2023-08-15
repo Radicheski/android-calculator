@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         put(R.id.buttonSign, MainActivity.this::changeSign);
         put(R.id.buttonPercent, MainActivity.this::percent);
         put(R.id.buttonDecimal, MainActivity.this::setDecimal);
+        put(R.id.buttonDivision, MainActivity.this::divide);
+        put(R.id.buttonMultiplication, MainActivity.this::multiply);
+        put(R.id.buttonSubtraction, MainActivity.this::subtract);
+        put(R.id.buttonAddition, MainActivity.this::add);
         put(R.id.button0, () -> appendNumber(0));
         put(R.id.button1, () -> appendNumber(1));
         put(R.id.button2, () -> appendNumber(2));
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         numerator *= 10;
         numerator += number;
         if (decimal) denominator *= 10;
+        textView.setText(String.format("%f", numerator / denominator));
     }
 
     private void setDecimal() {
@@ -93,5 +97,30 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeSign() {
         numerator *= -1;
+    }
+
+    private void divide() {
+        answer /= (numerator / denominator);
+        showAnswer();
+    }
+
+    private void multiply() {
+        answer *= (numerator / denominator);
+        showAnswer();
+    }
+
+    private void add() {
+        answer += (numerator / denominator);
+        showAnswer();
+    }
+
+    private void subtract() {
+        answer -= (numerator / denominator);
+        showAnswer();
+    }
+
+    private void showAnswer() {
+        clear();
+        textView.setText(String.format("%f", answer));
     }
 }
