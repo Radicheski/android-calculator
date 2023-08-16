@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "dev.radicheski.calculator"
-        minSdk = 10
+        minSdk = 16
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -35,6 +35,7 @@ android {
 dependencies {
 
     implementation(libs.appcompat)
+    implementation(libs.material)
     implementation(libs.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
