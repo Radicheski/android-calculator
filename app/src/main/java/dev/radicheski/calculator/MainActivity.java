@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private double denominator = 1;
     private boolean decimal = false;
     private double answer = 0;
+    private Runnable operation = MainActivity.this::add;
 
     private TextView textView;
 
@@ -26,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
         put(R.id.buttonSign, MainActivity.this::changeSign);
         put(R.id.buttonPercent, MainActivity.this::percent);
         put(R.id.buttonDecimal, MainActivity.this::setDecimal);
-        put(R.id.buttonDivision, MainActivity.this::divide);
-        put(R.id.buttonMultiplication, MainActivity.this::multiply);
-        put(R.id.buttonSubtraction, MainActivity.this::subtract);
-        put(R.id.buttonAddition, MainActivity.this::add);
+        put(R.id.buttonDivision, () -> setOperation(MainActivity.this::divide));
+        put(R.id.buttonMultiplication, () -> setOperation(MainActivity.this::multiply));
+        put(R.id.buttonSubtraction, () -> setOperation(MainActivity.this::subtract));
+        put(R.id.buttonAddition, () -> setOperation(MainActivity.this::add));
         put(R.id.buttonEqual, () -> { /* TODO */ } );
         put(R.id.button0, () -> appendNumber(0));
         put(R.id.button1, () -> appendNumber(1));
@@ -59,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     private void onClick(View view) {
         Runnable function = functions.get(view.getId());
         if (Objects.nonNull(function)) function.run();
-        textView.setText(String.format("%f", numerator / denominator));
     }
 
     private void appendNumber(int number) {
@@ -73,11 +73,18 @@ public class MainActivity extends AppCompatActivity {
         decimal = true;
     }
 
+    private void setOperation(Runnable operation) {
+        if (Objects.nonNull(this.operation)) this.operation.run();
+        this.operation = operation;
+    }
+
     private void percent() {
         numerator /= 100;
     }
 
     private void clear() {
+        answer = 0;
+        operation = this::add;
         numerator = 0;
         denominator = 1;
         decimal = false;
