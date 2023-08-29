@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         numerator *= 10;
         numerator += number;
         if (decimal) denominator *= 10;
-        textView.setText(String.format("%f", numerator / denominator));
+        textView.setText(formatted(numerator / denominator));
     }
 
     private void setDecimal() {
@@ -83,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clear() {
-        answer = 0;
-        operation = this::add;
         numerator = 0;
         denominator = 1;
         decimal = false;
@@ -92,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeSign() {
         numerator *= -1;
+        textView.setText(formatted(numerator / denominator));
     }
 
     private void divide() {
@@ -116,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void showAnswer() {
         clear();
-        textView.setText(String.format("%f", answer));
+        textView.setText(formatted(answer));
+    }
+
+    private String formatted(double number) {
+        return String.format("%f", number);
     }
 }
