@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private final Map<Integer, Runnable> functions = new HashMap<>() {{
         put(R.id.buttonClear, MainActivity.this::clear);
         put(R.id.buttonSign, MainActivity.this::changeSign);
-        put(R.id.buttonPercent, MainActivity.this::percent); //TODO Funciona só para input. Estender para answer
+        put(R.id.buttonPercent, MainActivity.this::percent);
         put(R.id.buttonDecimal, MainActivity.this::setDecimal);
         put(R.id.buttonDivision, () -> setOperation(MainActivity.this::divide));
         put(R.id.buttonMultiplication, () -> setOperation(MainActivity.this::multiply));
@@ -139,6 +139,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String formatted(double number) {
-        return String.format("%f", number);
+        return String.format("%.15f", number).replaceAll(",?0*$", "");
     }
 }
