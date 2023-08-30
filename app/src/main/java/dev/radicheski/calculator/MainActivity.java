@@ -23,15 +23,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
 
     private final Map<Integer, Runnable> functions = new HashMap<>() {{
-        put(R.id.buttonClear, MainActivity.this::clear);
-        put(R.id.buttonSign, MainActivity.this::changeSign);
-        put(R.id.buttonPercent, MainActivity.this::percent);
-        put(R.id.buttonDecimal, MainActivity.this::setDecimal);
-        put(R.id.buttonDivision, () -> setOperation(MainActivity.this::divide));
-        put(R.id.buttonMultiplication, () -> setOperation(MainActivity.this::multiply));
-        put(R.id.buttonSubtraction, () -> setOperation(MainActivity.this::subtract));
-        put(R.id.buttonAddition, () -> setOperation(MainActivity.this::add));
-        put(R.id.buttonEqual, () -> { /* TODO */ } );
+        put(R.id.buttonClear, MainActivity.this::clear); //TODO
+        put(R.id.buttonSign, MainActivity.this::changeSign); //TODO
+        put(R.id.buttonPercent, MainActivity.this::percent); //TODO
+        put(R.id.buttonDecimal, MainActivity.this::setDecimal); //TODO
+        put(R.id.buttonDivision, () -> setOperation(MainActivity.this::divide)); //TODO
+        put(R.id.buttonMultiplication, () -> setOperation(MainActivity.this::multiply)); //TODO
+        put(R.id.buttonSubtraction, () -> setOperation(MainActivity.this::subtract)); //TODO
+        put(R.id.buttonAddition, () -> setOperation(MainActivity.this::add)); //TODO
+        put(R.id.buttonEqual, () -> { /* TODO */ } ); //TODO
         put(R.id.button0, () -> appendNumber(0));
         put(R.id.button1, () -> appendNumber(1));
         put(R.id.button2, () -> appendNumber(2));
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         numerator *= 10;
         numerator += number;
         if (decimal) denominator *= 10;
-        textView.setText(formatted(numerator / denominator));
+        showInput();
     }
 
     private void setDecimal() {
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void percent() {
         numerator /= 100;
+        showInput();
     }
 
     private void clear() {
@@ -89,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void changeSign() {
-        numerator *= -1;
-        textView.setText(formatted(numerator / denominator));
+        denominator *= -1;
+        showInput();
     }
 
     private void divide() {
@@ -116,6 +117,10 @@ public class MainActivity extends AppCompatActivity {
     private void showAnswer() {
         clear();
         textView.setText(formatted(answer));
+    }
+
+    private void showInput() {
+        textView.setText(formatted(numerator / denominator));
     }
 
     private String formatted(double number) {
