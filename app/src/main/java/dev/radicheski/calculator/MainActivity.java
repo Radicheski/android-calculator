@@ -84,9 +84,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clear() {
+        answer = 0;
+        operation = this::add;
         numerator = 0;
         denominator = 1;
         decimal = false;
+        showInput();
     }
 
     private void changeSign() {
