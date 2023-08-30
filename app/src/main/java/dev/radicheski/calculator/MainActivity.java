@@ -23,15 +23,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
 
     private final Map<Integer, Runnable> functions = new HashMap<>() {{
-        put(R.id.buttonClear, MainActivity.this::clear); //TODO
-        put(R.id.buttonSign, MainActivity.this::changeSign); //TODO
-        put(R.id.buttonPercent, MainActivity.this::percent); //TODO
-        put(R.id.buttonDecimal, MainActivity.this::setDecimal); //TODO
-        put(R.id.buttonDivision, () -> setOperation(MainActivity.this::divide)); //TODO
-        put(R.id.buttonMultiplication, () -> setOperation(MainActivity.this::multiply)); //TODO
-        put(R.id.buttonSubtraction, () -> setOperation(MainActivity.this::subtract)); //TODO
-        put(R.id.buttonAddition, () -> setOperation(MainActivity.this::add)); //TODO
-        put(R.id.buttonEqual, () -> { /* TODO */ } ); //TODO
+        put(R.id.buttonClear, MainActivity.this::clear);
+        put(R.id.buttonSign, MainActivity.this::changeSign);
+        put(R.id.buttonPercent, MainActivity.this::percent); //TODO Funciona só para input. Estender para answer
+        put(R.id.buttonDecimal, MainActivity.this::setDecimal);
+        put(R.id.buttonDivision, () -> setOperation(MainActivity.this::divide));
+        put(R.id.buttonMultiplication, () -> setOperation(MainActivity.this::multiply));
+        put(R.id.buttonSubtraction, () -> setOperation(MainActivity.this::subtract));
+        put(R.id.buttonAddition, () -> setOperation(MainActivity.this::add));
+        put(R.id.buttonEqual, MainActivity.this::equals);
         put(R.id.button0, () -> appendNumber(0));
         put(R.id.button1, () -> appendNumber(1));
         put(R.id.button2, () -> appendNumber(2));
@@ -78,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
         this.operation = operation;
         showAnswer();
         clearInput();
+    }
+
+    private void equals() {
+        if (Objects.nonNull(this.operation)) this.operation.run();
+        double answer = this.answer;
+        clear();
+        textView.setText(formatted(answer));
     }
 
     private void percent() {
